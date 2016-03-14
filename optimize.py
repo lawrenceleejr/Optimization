@@ -205,14 +205,16 @@ did_regex = re.compile('\.?(?:00)?(\d{6,8})\.?')
 def get_did(filename):
   global did_regex
   m = did_regex.search(filename)
-  if m is None: raise ValueError('Can\'t figure out the DID!')
+  if m is None: 
+    return 1 #raise ValueError('Can\'t figure out the DID!')
   return m.group(1)
 
 #@echo(write=logger.debug)
 def get_scaleFactor(weights, did):
   weight = weights.get(did, None)
   if weight is None:
-    raise KeyError("Could not find the weights for did=%s" % did)
+    return 1
+    # raise KeyError("Could not find the weights for did=%s" % did)
   scaleFactor = 1.0
   cutflow = weight.get('num events')
   if cutflow == 0:
